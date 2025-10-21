@@ -1,0 +1,9 @@
+build/
+*.o
+*.a
+*.so
+*.dylib
+gateway
+.DS_Store
+.vscode/
+

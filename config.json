@@ -1,0 +1,17 @@
+{
+  "server": {
+    "host": "54.234.98.110",
+    "port": 8765,
+    "api_base": "/api",
+    "use_https": true
+  },
+  "device": {
+    "id": "vmg-001",
+    "name": "Vehicle Mobile Gateway",
+    "type": "Linux"
+  },
+  "tls": {
+    "verify_peer": false
+  }
+}
+
