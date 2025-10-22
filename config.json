@@ -1,9 +1,20 @@
 {
   "server": {
     "host": "54.234.98.110",
-    "port": 8765,
-    "api_base": "/api",
-    "use_https": true
+    "http": {
+      "port": 8765,
+      "api_base": "/api",
+      "use_https": true
+    },
+    "mqtt": {
+      "port": 8883,
+      "use_tls": true,
+      "topics": {
+        "command": "vmg/command",
+        "status": "vmg/status",
+        "ota": "vmg/ota"
+      }
+    }
   },
   "device": {
     "id": "vmg-001",
@@ -11,7 +22,14 @@
     "type": "Linux"
   },
   "tls": {
-    "verify_peer": false
+    "verify_peer": false,
+    "version": "1.3"
+  },
+  "pqc": {
+    "enabled": false,
+    "kem_algorithm": "Kyber768",
+    "signature_algorithm": "Dilithium3",
+    "note": "Post-Quantum Cryptography support - requires liboqs"
   }
 }
 
