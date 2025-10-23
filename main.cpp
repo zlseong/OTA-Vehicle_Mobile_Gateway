@@ -124,8 +124,38 @@ int main(int argc, char* argv[]) {
     }
     std::cout << std::endl;
 
-    // Test 4: MQTT Connection
-    std::cout << "[Test 4] MQTT Connection..." << std::endl;
+    // Test 4: Connection Status
+    std::cout << "[Test 4] Connection Status..." << std::endl;
+    auto connection_response = client.get("/connections");
+    
+    if (connection_response.success) {
+        std::cout << "✅ Connection status retrieved" << std::endl;
+        std::cout << "   Response: " << connection_response.body << std::endl;
+    } else {
+        std::cout << "❌ Connection status failed" << std::endl;
+        std::cout << "   Error: " << connection_response.error << std::endl;
+        std::cout << "   Status: " << connection_response.status_code << std::endl;
+    }
+    std::cout << std::endl;
+
+    // Test 5: File Upload
+    std::cout << "[Test 5] File Upload..." << std::endl;
+    
+    std::string test_file = "hi.txt";
+    auto file_response = client.postFile("/upload", test_file);
+    
+    if (file_response.success) {
+        std::cout << "✅ File uploaded successfully" << std::endl;
+        std::cout << "   Response: " << file_response.body << std::endl;
+    } else {
+        std::cout << "❌ File upload failed" << std::endl;
+        std::cout << "   Error: " << file_response.error << std::endl;
+        std::cout << "   Status: " << file_response.status_code << std::endl;
+    }
+    std::cout << std::endl;
+
+    // Test 5: MQTT Connection
+    std::cout << "[Test 5] MQTT Connection..." << std::endl;
     
     try {
         std::string client_id = config["device"]["id"].get<std::string>() + "_mqtt";

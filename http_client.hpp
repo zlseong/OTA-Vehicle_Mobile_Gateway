@@ -18,6 +18,7 @@ public:
     HttpResponse get(const std::string& path);
     HttpResponse post(const std::string& path, const std::string& body);
     HttpResponse postJson(const std::string& path, const std::string& json_body);
+    HttpResponse postFile(const std::string& path, const std::string& filepath);
 
 private:
     std::string base_url_;

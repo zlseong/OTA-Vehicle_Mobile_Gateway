@@ -1,0 +1,5 @@
+Hello from VMG Gateway!
+This is a test file for HTTP file upload.
+Current time: 2025-01-22
+Device: Linux Gateway
+Status: Online
