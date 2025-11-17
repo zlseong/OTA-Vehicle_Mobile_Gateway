@@ -1,35 +1,139 @@
 {
   "server": {
-    "host": "54.234.98.110",
+    "host": "localhost",
     "http": {
-      "port": 8765,
+      "port": 5000,
       "api_base": "/api",
-      "use_https": true
+      "use_https": false,
+      "endpoints": {
+        "health": "/api/health",
+        "vci_upload": "/api/vci/upload",
+        "ota_check": "/api/ota/check",
+        "ota_download": "/api/ota/packages/{package_id}",
+        "ota_status": "/api/ota/status"
+      }
     },
     "mqtt": {
-      "port": 8883,
-      "use_tls": true,
+      "port": 1883,
+      "use_tls": false,
+      "keep_alive_sec": 60,
+      "clean_session": false,
+      "qos": 1,
       "topics": {
-        "command": "vmg/command",
-        "status": "vmg/status",
-        "ota": "vmg/ota"
+        "command": "vmg/{device_id}/command",
+        "status": "vmg/{device_id}/status",
+        "ota": "vmg/{device_id}/ota",
+        "vci": "vmg/{device_id}/vci",
+        "readiness": "vmg/{device_id}/readiness"
       }
     }
+  },
+  "vehicle": {
+    "vin": "KMHXX00XXXX000001",
+    "model": "Genesis GV80",
+    "model_year": 2024,
+    "manufacturing_date": "2024-01-15",
+    "vehicle_type": 2,
+    "drivetrain_type": 3,
+    "fuel_type": 4,
+    "engine_displacement_cc": 2999,
+    "battery_capacity_kwh": 131,
+    "region_code": 3,
+    "language": 3,
+    "ee_architecture_version": 2,
+    "master_sw_version": "2.0.0"
   },
   "device": {
     "id": "vmg-001",
     "name": "Vehicle Mobile Gateway",
-    "type": "Linux"
+    "type": "Linux",
+    "hardware_version": "2.0",
+    "software_version": "2.0.0",
+    "mac_address": "00:1A:2B:3C:4D:5E",
+    "ip_address": "192.168.1.100",
+    "location": "vehicle_center"
+  },
+  "zgw": {
+    "ip_address": "192.168.1.10",
+    "doip_port": 13400,
+    "logical_address": 4096,
+    "uds": {
+      "read_vci_did": 61184,
+      "read_readiness_did": 61185,
+      "session_control": true,
+      "security_access": false,
+      "timeout_ms": 2000
+    },
+    "note": "VCI/Readiness collection: Power-on (1회) + External request only"
+  },
+  "ota": {
+    "download_path": "/mnt/data/ota/downloads",
+    "install_path": "/mnt/data/ota/install",
+    "backup_path": "/mnt/data/ota/backup",
+    "max_package_size_mb": 500,
+    "chunk_size_kb": 1024,
+    "retry_attempts": 3,
+    "timeout_sec": 300,
+    "auto_install": false,
+    "dual_partition": {
+      "enabled": true,
+      "partition_a": "/dev/mmcblk0p2",
+      "partition_b": "/dev/mmcblk0p3",
+      "data_partition": "/dev/mmcblk0p4",
+      "data_mount_point": "/mnt/data",
+      "bootloader": "grub",
+      "boot_flag_path": "/mnt/data/boot_status.dat",
+      "note": "3-Sector Layout: Boot(p1) + RootFS_A(p2) + RootFS_B(p3) + Data(p4)"
+    }
+  },
+  "readiness": {
+    "min_battery_percent": 50,
+    "min_free_space_mb": 1000,
+    "max_temperature_celsius": 85,
+    "check_engine_off": true,
+    "check_parking_brake": true,
+    "check_network_stable": true
   },
   "tls": {
     "verify_peer": false,
-    "version": "1.3"
+    "version": "1.3",
+    "ca_cert": "/etc/ssl/certs/ca-cert.pem",
+    "client_cert": "/etc/ssl/certs/vmg-cert.pem",
+    "client_key": "/etc/ssl/private/vmg-key.pem"
   },
   "pqc": {
-    "enabled": false,
-    "kem_algorithm": "Kyber768",
-    "signature_algorithm": "Dilithium3",
-    "note": "Post-Quantum Cryptography support - requires liboqs"
+    "enabled": true,
+    "kem_algorithm": "mlkem768",
+    "signature_algorithm": "mldsa65",
+    "hybrid_mode": true,
+    "fallback_to_classical": true,
+    "note": "Post-Quantum Cryptography (OpenSSL 3.6.0 native)"
+  },
+  "logging": {
+    "level": "info",
+    "file": "/mnt/data/log/vmg.log",
+    "max_size_mb": 100,
+    "max_files": 10,
+    "console_output": true,
+    "note": "로그는 데이터 파티션에 저장 (OTA 업데이트 시 보존됨)"
+  },
+  "monitoring": {
+    "heartbeat_enabled": true,
+    "heartbeat_interval_sec": 300,
+    "adaptive_heartbeat": true,
+    "event_driven_reporting": true,
+    "states": {
+      "driving": 60,
+      "parked_ignition_on": 300,
+      "parked_ignition_off": 1800,
+      "charging": 600,
+      "ota_active": 30
+    },
+    "metrics_interval_sec": 300,
+    "health_check_interval_sec": 60,
+    "watchdog_enabled": true,
+    "watchdog_timeout_sec": 120,
+    "note": "MQTT Keep-Alive: 60초 (연결 유지), Heartbeat: 300초 (상태 보고)"
   }
 }
 
