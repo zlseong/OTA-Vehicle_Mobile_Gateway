@@ -4,11 +4,60 @@ Complete OTA gateway with HTTP/HTTPS + MQTT + PQC support for Linux.
 
 ## Features
 
-- ✅ **HTTP/HTTPS** - RESTful API communication with TLS 1.2/1.3
-- ✅ **MQTT** - Real-time messaging with TLS support
-- ✅ **Device Management** - Registration, status updates, health monitoring
-- ✅ **SSL/TLS Control** - Certificate verification control for development
-- ✅ **PQC-Ready** - Post-Quantum Cryptography configuration (requires liboqs)
+## 구현 기능 (Implemented Features)
+
+### 1. 차량 통신 프로토콜 (Vehicle Communication Protocols)
+- DoIP (Diagnostics over IP) - ISO 13400
+- UDS (Unified Diagnostic Services) - ISO 14229
+- MQTT (Message Queuing Telemetry Transport)
+- HTTP/HTTPS REST API
+
+### 2. 듀얼 파티션 아키텍처 (Dual Partition Architecture)
+- A/B Partition 구조
+- Yocto 기반 파티션 레이아웃
+- SWUpdate/RAUC 통합
+
+### 3. 부트 관리 (Boot Management)
+- U-Boot 환경 변수 제어
+- 자동 Rollback (3회 실패 시)
+- fw_setenv 기반 파티션 전환
+
+### 4. 메모리 동기화 (Memory Synchronization)
+- dd 명령 기반 전체 동기화
+- rsync 기반 증분 동기화
+- 파일시스템 무결성 검증
+
+### 5. Hybrid PQC-TLS (Post-Quantum Cryptography)
+- ML-KEM-768 (Key Encapsulation)
+- ML-DSA-65 (Digital Signature)
+- OpenSSL 3.6.0 Native 지원
+
+### 6. JSON 데이터 구조 (JSON Data Formats)
+- VCI (Vehicle Configuration Information)
+- Metadata (OTA Package Information)
+- Readiness (Pre-update Conditions)
+
+### 7. 원격 진단 (Remote Diagnostics)
+- MQTT 기반 명령 수신
+- DoIP/UDS 명령 전송
+- 이벤트 기반 처리
+
+### 8. OTA 업데이트 관리 (OTA Update Management)
+- 패키지 다운로드 및 진행률 보고
+- 암호화 서명 검증
+- Standby 파티션 설치
+- 부트 검증 및 Rollback
+
+### 9. 시스템 모니터링 (System Monitoring)
+- Adaptive Heartbeat (차량 상태별)
+- Telemetry 데이터 수집
+- Health Check
+
+### 10. 보안 (Security)
+- TLS 1.3 암호화
+- X.509 인증서 인증
+- 디지털 서명 검증
+- Secure Boot Chain
 
 ## Architecture
 
