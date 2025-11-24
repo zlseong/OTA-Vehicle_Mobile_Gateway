@@ -120,6 +120,21 @@ Edit `config.json`:
 - `pqc.signature_algorithm`: Signature (Dilithium3, Dilithium5)
 
 
+## 테스트
+
+```bash
+# Run all tests
+./gateway config.json
+
+# Test HTTP only
+curl -k https://54.234.98.110:8765/api/health
+
+# Monitor MQTT
+mosquitto_sub -h 54.234.98.110 -p 8883 -t "vmg/#" --cafile ca.crt
+```
+
+
+
 ## License
 
 MIT
