@@ -1,6 +1,6 @@
 # Vehicle Mobile Gateway v2.0
 
-Complete OTA gateway with HTTP/HTTPS + MQTT + PQC support for Linux.
+Complete OTA gateway with HTTP/HTTPS + MQTT + PQC support for Linux
 
 ## Features
 
@@ -138,5 +138,6 @@ mosquitto_sub -h 54.234.98.110 -p 8883 -t "vmg/#" --cafile ca.crt
 ## License
 
 MIT
+
 
 
