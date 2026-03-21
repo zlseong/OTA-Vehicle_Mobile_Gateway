@@ -4,7 +4,7 @@ Complete OTA gateway with HTTP/HTTPS + MQTT + PQC support for Linux
 
 ## Features
 
-## 구현 기능 (Implemented Features)
+## 구현 기능
 
 ### 1. 차량 통신 프로토콜 (Vehicle Communication Protocols)
 - DoIP (Diagnostics over IP) - ISO 13400
@@ -59,7 +59,7 @@ Complete OTA gateway with HTTP/HTTPS + MQTT + PQC support for Linux
 - 디지털 서명 검증
 - Secure Boot Chain
 
-## Architecture
+## 아키텍처
 
 ```
 AWS Server (54.234.98.110)
@@ -70,7 +70,7 @@ AWS Server (54.234.98.110)
                                └─→ TC375 MCU (future)
 ```
 
-## Build
+## 빌드
 
 ### Prerequisites
 
@@ -120,7 +120,7 @@ Edit `config.json`:
 - `pqc.signature_algorithm`: Signature (Dilithium3, Dilithium5)
 
 
-## 테스트
+## 테스트 스크립트 실행
 
 ```bash
 # Run all tests
@@ -135,7 +135,7 @@ mosquitto_sub -h 54.234.98.110 -p 8883 -t "vmg/#" --cafile ca.crt
 
 
 
-## License
+## 라이센스
 
 MIT
 
